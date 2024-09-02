@@ -1,7 +1,6 @@
 # For LG, KKP, ETC etc.
 from oss.core.log import Log
-from oss.core.message import BrokerConnection, BrokerExchangeType
-from oss.timer.models.timer import BaseTimer
+from oss.core.models.base.timer import BaseTimer
 
 # Activate module wide logging
 logger = Log.get_logger_function()(__name__)
