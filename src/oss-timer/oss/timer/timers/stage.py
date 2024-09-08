@@ -10,6 +10,7 @@ logger = Log.get_logger_function()(__name__)
 
 class StageTimer(BaseTimer):
     _timer_controls: dict[TimerControl, Callable] = {}
+    _discipline_configuration: dict
 
     def __init__(self) -> None:
         self._map_timer_controls()
