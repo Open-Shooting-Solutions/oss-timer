@@ -8,16 +8,21 @@ logger = Log.get_logger_function()(__name__)
 
 
 class TimerApp(BaseApp):
-    _timers: list[BaseTimer] = []
+    _timer: BaseTimer
 
-    def __init__(self, timers: list[Timer]) -> None:
-        # If there are buzzers as a parameter, add them to the buzzer list.
-        if timers:
-            for timer in timers:
-                self._timers.append(timer.value())
+    def __init__(self, timer: Timer) -> None:
+        # If there are timers as a parameter, add them to the timer list.
+        if timer:
+            # Initialize the passed in timer and make it the timer of this timer app
+            self._timer = timer.value()
+            logger.info(self._identifier)
         else:
             # We have a major problem a timer app without a timer
-            pass
+            logger.critical("Cannot start app. No timer or invalid timer specified")
+            self.terminate()
+
+    def __del__(self):
+        self.terminate()
 
     def run(self) -> None:
         while True:
@@ -29,5 +34,5 @@ class TimerApp(BaseApp):
         pass
 
 
-app: TimerApp = TimerApp(timers=[Timer.STAGE])
+app: TimerApp = TimerApp(timer=Timer.STAGE)
 app.run()
